@@ -162,7 +162,7 @@
 			    alert("Name missing!");
 			    return;
 		    }
-	    
+	      var currentPhoto=0;
 	      for(var i=0;i<dataUrls.length;i++)
 	      {
 		    var xhttp = new XMLHttpRequest();
@@ -173,7 +173,10 @@
 			      console.log(this.responseText);
 			      var responseObj = JSON.parse(this.responseText);
 			      if( responseObj != undefined && responseObj.meta.code == "200") {
-				      console.log("Image saved!");
+				      if(++currentPhoto==dataUrls.length)
+					alert("Images saved!");
+				      else
+					console.log("Images saved!");
 			      }
 			}
 		    };
