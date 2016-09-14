@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/opt/lampp/htdocs/fr/Server/src/detectObject.cpp
+lib/detectObject.h
+/opt/lampp/htdocs/fr/Server/src/lib/detectObject.h
+
+/opt/lampp/htdocs/fr/Server/src/lib/detectObject.h
+stdio.h
+-
+iostream
+-
+vector
+-
+opencv2/opencv.hpp
+/opt/lampp/htdocs/fr/Server/src/lib/opencv2/opencv.hpp
+

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libPreprocessFace.a  CMakeFiles/PreprocessFace.dir/src/preprocessFace.cpp.o
+/usr/bin/ranlib libPreprocessFace.a

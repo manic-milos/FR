@@ -1,0 +1,300 @@
+@font-face {	
+	src: url("fonts/osr.ttf");
+	font-family: "Open Sans";
+}
+
+body {
+	margin: 0px;
+}
+
+.wrap {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#545454+0,2d2b2b+100 */
+background: #545454; /* Old browsers */
+background: -moz-linear-gradient(top,  #545454 0%, #2d2b2b 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #545454 0%,#2d2b2b 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #545454 0%,#2d2b2b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#545454', endColorstr='#2d2b2b',GradientType=0 ); /* IE6-9 */
+	min-height: 100vh;
+	height: 100%
+	width: 100%;
+	background-attachment: fixed;
+}
+
+.pattern {
+	min-height: 100vh;
+	background-image: url(img/bck.png);
+	height: 100%;
+	width: 100%;
+	background-attachment: fixed;
+}
+
+h1 {
+	margin: 0px;
+	font-family: "Open Sans";
+	font-size: 18px;
+	color: gray;
+	float: left;
+}
+
+.navitem {
+	font-family: "Open Sans";
+	font-style: 18px;
+	color: rgba(255,255,255,0.7);
+	text-decoration: none;
+	float: right;
+	margin-left: 10px;
+}
+
+.navitem.active {
+	color: white;
+}
+
+.app {
+	max-width: 500px;
+	/*height: 800px;*/
+	padding-bottom: 30px;
+	margin: auto;
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3d3d3d+0,1c1c1c+100 */
+    background: #3d3d3d; /* Old browsers */ /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(top left, #3d3d3d 0%, #1c1c1c 100%);
+    background: -o-linear-gradient(top left, #3d3d3d 0%, #1c1c1c 100%);
+    background: linear-gradient(to bottom right, #3d3d3d 0%, #1c1c1c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3d3d3d', endColorstr='#1c1c1c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+	border-radius: 15px;
+	box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.4);
+}
+
+header {
+	background-color: #484848;
+	height: 40px;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-right: 20px;
+
+	box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
+}
+
+.look {
+	margin-top: 20px;
+	color: white;
+	font-family: "Open Sans";
+	text-align: center;
+}
+
+.camera {
+	margin-top: 40px;
+	display: block;
+	margin: auto;
+}
+
+.video-wrap {
+	margin: auto;
+	width: 75%;
+	height: 400px;
+	background-color: white;
+	margin-top: 50px;
+	border-radius: 5px;
+	padding: 10px;
+
+	background-color: #858585;
+}
+
+.video {
+	background-size: cover;
+	background-position: center;
+	background-color: white;
+	height: 100%;
+	border-radius: 3px;
+/*	border: 3px solid gray; */
+	box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.6);
+	text-align: center;
+	overflow: hidden;
+	height: 100%;
+}
+
+.pic-wrap {
+	margin: auto;
+	width: 75%;
+	height: 400px;
+	background-color: white;
+	margin-top: 50px;
+	border-radius: 5px;
+	padding: 10px;
+
+	background-color: #858585;
+}
+
+.pic {
+	background-size: cover;
+	background-position: center;
+	background-color: white;
+	height: 100%;
+	border-radius: 3px;
+/*	border: 3px solid gray; */
+	box-shadow: inset 0px 0px 8px 0px rgba(0,0,0,0.6);
+	text-align: center;
+	overflow: hidden;
+	height: 100%;
+}
+
+video {
+	width: 600px;
+	/*margin-top: -200px;*/
+}
+
+#screenshot {
+	background-color: white;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	display: none;
+}
+
+.rec {
+	float: right;
+	margin-right: 30%;
+	margin-top: -50px;
+	opacity: 0;
+}
+
+.scan {
+	background-color: #18578c;
+	border: none;
+	color: white;
+	font-family: "Open Sans";
+	display: block;
+	margin: auto;
+	padding: 10px 40px 10px 40px;
+	margin-top: 30px;
+}
+
+.scan-small {
+	background-color: #18578c;
+	border: none;
+	color: white;
+	font-family: "Open Sans";
+	display: block;
+	margin: auto;
+	padding: 5px 30px 5px 30px;
+	margin-top: 30px;
+}
+
+input.scan {
+	background-color: white;
+	border: none;
+	color: #18578c;
+	font-family: "Open Sans";
+	display: block;
+	margin: auto;
+	padding: 10px 40px 10px 40px;
+	margin-top: 30px;
+}
+
+button.scan:hover {
+	background-color: #23649a;
+	cursor: pointer;
+}
+
+input[type="text"] {
+	margin-top: 10px;
+}
+
+@media(max-width: 600px){
+	.app {
+		width: 100%;
+		max-width: 100%;
+		height: 100%;
+	}
+
+	video {
+		width: 100%;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.video-wrap {
+		height: auto;
+		margin-top: 20px;
+	}
+
+	.video {
+		padding: 0px;
+	}
+
+	.camera {
+		width: 30px;
+	}
+
+	.pic {
+		height: 100%;
+	}
+
+	.pic-wrap {
+		height: 30%;
+	}
+}
+
+#picwrap {
+	background-image: url(img/noimage.jpg);
+}
+
+.model-learn {
+	background-color: #2d2d2d;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+#nameFound {
+	color: white;
+	font-family: "Open Sans";
+	position: absolute;
+	top: 65%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: gray;
+	padding: 10px 30px 10px 30px;
+}
+
+/* Brana coding CSS */
+.frame {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 5000;
+}
+.modal-window {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	width: 80%;
+	height: 80vh;
+}
+.frame img {
+	max-width: 100%;
+	max-height: 100%;
+	border: 5px solid white;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+p.label {
+	color: white;
+	text-align: center;
+	margin:auto;
+font-size: 13px;
+	margin-bottom: 0px;
+	margin-top: 20px;
+	font-family: "Open Sans";
+}

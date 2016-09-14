@@ -1,0 +1,2 @@
+/usr/bin/ar cr libRecognition.a  CMakeFiles/Recognition.dir/src/recognition.cpp.o
+/usr/bin/ranlib libRecognition.a

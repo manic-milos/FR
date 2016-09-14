@@ -1,0 +1,8 @@
+/opt/lampp/htdocs/fr/Server/CMakeFiles/Client.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/ClientSocket.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/DetectObject.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/PreprocessFace.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/Recognition.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/Server.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/ServerSocket.dir
+/opt/lampp/htdocs/fr/Server/CMakeFiles/Socket.dir

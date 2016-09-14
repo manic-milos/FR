@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Face recognition</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="wrap">
+		<div class="pattern">
+			<div class="app">
+				<header>
+					<h1 class="title">Face recognition</h1>
+					<nav>
+						<a href="video.html" class="navitem active">Learn</a>
+						<a href="photo.html" class="navitem">Photo</a>
+						<a href="index.html" class="navitem active">Video</a>
+					</nav>
+				</header>
+				<p class="look">Look at the camera</p>
+				<img class="camera" src="img/camera.png" alt="">
+				<img class="rec" id="rec" src="img/rec.png" alt="">
+
+				<canvas id="screenshot"></canvas>
+
+				<div class="video-wrap">
+					<div class="video" id="videowrap">
+						<video id="video" autoplay="true" src=""></video>
+					</div>
+				</div>
+
+				<div class="model-learn">				
+				<p class="look">Add person to model</p>
+				<p class="label">Person's name</p>
+					<input class="scan" list="datal" type="text" placeholder="Name" id="personName"/>
+					<datalist id="datal">
+					</datalist>
+					<button class="scan-small" id="scan" onclick="toggleScan()">Scan</button>
+					<button class="scan-small" onclick="learn()">Learn faces!</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="frame">
+		<div class="modal-window">
+			<img src="" alt="most likely">
+			<p id="nameFound">Pera Peric</p>
+		</div>
+
+	</div>
+
+	<script>
+
+	var numss = 0;
+	
+	var videowrap = document.getElementById('videowrap');
+
+	console.log(window.getComputedStyle(video));
+
+	console.log(-parseInt(window.getComputedStyle(video).width));
+
+	video.style.marginLeft = (-parseInt(window.getComputedStyle(video).width)/2 + parseInt(window.getComputedStyle(videowrap).width)/2) + "px";
+
+  	var localMediaStream = null;
+
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+	if (navigator.getUserMedia) {
+	    navigator.getUserMedia({video: true}, handleVideo, videoError);
+	}
+
+
+	function videoError(e) {
+	    // do something
+	}
+
+	function handleVideo(stream) {
+	    video.src = window.URL.createObjectURL(stream);
+	    localMediaStream = stream;
+		}
+
+	function screenShot()
+	{
+	
+	console.log(numss);
+	    if(numss == 20)
+	    {
+	        
+	      	toggleScan();
+	      	alert("New face learned!");
+	      	numss = 0;
+	      	return;
+	    }
+	      
+		if(recording == false)
+			return;
+		var canvas = document.getElementById('screenshot');
+
+		canvas.width = parseInt(getComputedStyle(video).width);
+		canvas.height = parseInt(getComputedStyle(video).height);
+
+		var ctx = canvas.getContext('2d');
+		ctx.drawImage(video, 0, 0);
+		imageName = "frame";
+		dataURL = canvas.toDataURL();
+
+		save(dataURL, imageName);
+					 
+	    
+						
+				
+
+	}
+
+	var recording = false;
+
+	function learn()
+    {
+				var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    //  window.alert(this.responseText);
+					 console.log(this.responseText);
+					 var responseObj = JSON.parse(this.responseText);
+					 if( responseObj != undefined && responseObj.meta.status == "200" ) {
+/*						 var $frame = document.querySelector('.frame');
+						 var $img = document.querySelector('.frame img');
+						
+						 $img.src = responseObj.data;
+						 $frame.style.display = 'block';
+						 attachQuit.call($frame);*/
+						alert("Model learned!");
+					 }
+			    }
+			  };
+			  xhttp.open("POST", "http://localhost/fr/final/server/learn.php", true);
+			  xhttp.send();
+// 				xhttp.open("POST", "/server/server.php", true);
+// 				xhttp.send('{"data": "'+dataUrl+/*
+// 				'", "name": "'+imageName+'","person":"'+
+// 				document.getElementById('personName').value+'"}')*/;
+
+    }
+
+		function recBlink()
+	{
+		if(recording == false)
+			return;
+
+		rec = document.getElementById('rec');
+		if(rec.style.opacity == 0)
+			rec.style.opacity = 1;
+		else
+			rec.style.opacity = 0;
+		setTimeout(recBlink,500);
+	}
+
+	function loadDropdown()
+	{
+	  var xhttp = new XMLHttpRequest();
+
+	  xhttp.onreadystatechange = function() {
+	  console.log("load dropdown");
+	    if (this.readyState == 4 )
+	    {
+	      
+	      document.getElementById('datal').innerHTML = this.responseText;
+	    }
+	};
+	xhttp.open("POST", "http://localhost/fr/final/server/names.php", true);
+
+				// xhttp.open("POST", "/server/server.php", true);
+				xhttp.send();
+	}
+	
+	function save(dataURL, imageName)
+    {
+
+		if(document.getElementById('personName').value.trim().length == 0)
+		{
+			alert("Name missing!");
+			return;
+		}
+	
+				var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    //  window.alert(this.responseText);
+	
+					 console.log(this.responseText);
+					 var responseObj = JSON.parse(this.responseText);
+					
+						numss++;
+						 
+						setTimeout(screenShot(),500);
+					
+			    }
+			  };
+			  xhttp.open("POST", "http://localhost/fr/final/server/save.php", true);
+
+				// xhttp.open("POST", "/server/server.php", true);
+				xhttp.send('{"data": "'+dataURL+
+				'", "name": "'+imageName+'","person":"'+
+				document.getElementById('personName').value+'"}');
+
+	    
+    }
+	
+	function toggleScan()
+	{
+		if(recording == false)
+		{
+			recording = true;
+			screenShot();
+			recBlink();
+
+			document.getElementById('scan').innerHTML = 'Stop scanning'
+		}
+		else
+		{
+			document.getElementById('rec').style.opacity = 0;
+			recording = false;
+			document.getElementById('scan').innerHTML = 'Start scanning'
+		}
+	}
+
+	window.addEventListener('resize', function(event){
+  		video.style.marginLeft = (-parseInt(window.getComputedStyle(video).width)/2 + parseInt(window.getComputedStyle(videowrap).width)/2) + "px";
+
+		});
+
+function attachQuit() {
+			this.addEventListener("click", hideImage);
+		}
+		function dettachQuit() {
+			this.removeEventListener("click", hideImage);
+		}
+
+		function hideImage(ev) {
+			var $frame = document.querySelector('.frame');
+			$frame.style.display = 'none';
+			var $img = document.querySelector('.frame img');
+			$img.src = '';
+			dettachQuit.call(ev.target);
+		}
+		loadDropdown();
+	</script>
+
+</body>
+</html>

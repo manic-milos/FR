@@ -1,0 +1,2 @@
+/usr/bin/ar cr libDetectObject.a  CMakeFiles/DetectObject.dir/src/detectObject.cpp.o
+/usr/bin/ranlib libDetectObject.a

@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/administrator/fr/FaceRecognition/src/ImageUtils_0.7.cpp
+lib/ImageUtils.h
+/home/administrator/fr/FaceRecognition/src/lib/ImageUtils.h
+
+/home/administrator/fr/FaceRecognition/src/lib/ImageUtils.h
+cv.h
+-
+cxcore.h
+-
+highgui.h
+-
+stdio.h
+-
+conio.h
+-
+direct.h
+-
+stdio.h
+-
+termios.h
+-
+unistd.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+vector
+-
+string
+-
+iostream
+-
+

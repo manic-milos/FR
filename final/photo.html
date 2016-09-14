@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Face recognition</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="wrap">
+		<div class="pattern">
+			<div class="app">
+				<header>
+					<h1 class="title">Face recognition</h1>
+					<nav>
+						<a href="video.html" class="navitem active">Learn</a>
+						<a href="#" class="navitem active">Photo</a>
+						<a href="index.html" class="navitem">Video</a>
+					</nav>
+				</header>
+				<p class="look">Select image <input type="file" onchange="readURL(this)" multiple="true"></p>
+
+
+				<div class="pic-wrap">
+					<div class="pic" id="picwrap">
+					</div>
+				</div>
+
+				<button class="scan" id="scan" onclick="startScan()">Scan image</button>
+
+
+				<div class="model-learn">				
+				<p class="look">Add image to model</p>
+				<p class="label">Person's name</p>
+
+					
+					<input class="scan" list="datal" type="text" placeholder="Name" id="personName"/>
+					<datalist id="datal">
+					</datalist>
+					<button class="scan-small" onclick="save()">Save image</button>
+					<button class="scan-small" onclick="learn()">Learn faces!</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="frame">
+		<div class="modal-window">
+			<img src="" alt="most likely">
+			<p id="nameFound">Pera Peric</p>
+		</div>
+
+	</div>
+
+	<script>
+
+	var imageSelected = false;
+	var dataUrl = false;
+	var imageName = false;
+
+	function readURL(input) 
+	{
+	
+	  if (input.files && input.files[0]) 
+	  {
+		var reader = new FileReader();
+
+		  reader.onload = function (e) 
+		  {
+		    //document.getElementById('thumb').src = e.target.result
+									// console.log(e);
+		    // console.log(e.target.result);
+		    document.getElementById('picwrap').style.backgroundImage = 'url('+e.target.result+')';
+		    dataUrl = e.target.result;
+		    imageName = input.files[0].name;
+		  };
+
+	      imageSelected = true;
+
+	      reader.readAsDataURL(input.files[0]);
+	  }
+	}
+
+	function startScan()
+	{
+	    if(imageSelected)
+	    {
+		    document.getElementById('scan').innerHTML = 'Scanning...';
+
+				    var xhttp = new XMLHttpRequest();
+			      xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				//  window.alert(this.responseText);
+					    document.getElementById('scan').innerHTML = 'Scan image';
+					    console.log(this.responseText);
+					    var responseObj = JSON.parse(this.responseText.trim());
+					    if( responseObj.meta != undefined && responseObj.meta.code == "404")
+					    {
+						    alert("Face not recognized!");
+					    }
+					    else {
+						    var $frame = document.querySelector('.frame');
+						    var $img = document.querySelector('.frame img');
+						    var $personName = document.getElementById('nameFound');
+						    $personName.innerHTML = responseObj.name;
+						    $img.src = responseObj.data;
+						    $frame.style.display = 'block';
+						    attachQuit.call($frame);
+					    }
+				}
+			      };
+			      xhttp.open("POST", "http://localhost/fr/final/server/recognize.php", true);
+
+				    // xhttp.open("POST", "/server/server.php", true);
+				    xhttp.send('{"data": "'+dataUrl+'", "name": "'+imageName+'"}');
+
+		}
+	}
+	
+	function loadDropdown()
+	{
+	
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 )
+	  {
+	    document.getElementById('datal').innerHTML = this.responseText;
+	  }
+	};
+	
+	//<option value="pera">
+	  xhttp.open("POST", "http://localhost/fr/final/server/names.php", true);
+
+				    // xhttp.open("POST", "/server/server.php", true);
+				    xhttp.send('{"data": "'+dataUrl+'", "name": "'+imageName+'"}');
+	}
+	
+	function save()
+	{
+	    if(imageSelected)
+	    {
+
+		    if(document.getElementById('personName').value.trim().length == 0)
+		    {
+			    alert("Name missing!");
+			    return;
+		    }
+	    
+				    var xhttp = new XMLHttpRequest();
+			      xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				//  window.alert(this.responseText);
+	    
+					    console.log(this.responseText);
+					    var responseObj = JSON.parse(this.responseText);
+					    if( responseObj != undefined && responseObj.meta.code == "200") {
+						    alert("Image saved!");
+					    }
+				}
+			      };
+			      xhttp.open("POST", "http://localhost/fr/final/server/save.php", true);
+
+				    // xhttp.open("POST", "/server/server.php", true);
+				    xhttp.send('{"data": "'+dataUrl+
+				    '", "name": "'+imageName+'","person":"'+
+				    document.getElementById('personName').value+'"}');
+
+		}
+		    else
+		    {
+			    alert("No image selected!");
+		    }
+	}
+	function learn()
+	{
+				    var xhttp = new XMLHttpRequest();
+			      xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				//  window.alert(this.responseText);
+					    console.log(this.responseText);
+					    var responseObj = JSON.parse(this.responseText);
+					    if( responseObj != undefined && responseObj.meta.status == "200" ) {
+    /*						 var $frame = document.querySelector('.frame');
+						    var $img = document.querySelector('.frame img');
+						    
+						    $img.src = responseObj.data;
+						    $frame.style.display = 'block';
+						    attachQuit.call($frame);*/
+						    alert("Model learned!");
+					    }
+				}
+			      };
+			      xhttp.open("POST", "http://localhost/fr/final/server/learn.php", true);
+			      xhttp.send();
+    // 				xhttp.open("POST", "/server/server.php", true);
+    // 				xhttp.send('{"data": "'+dataUrl+/*
+    // 				'", "name": "'+imageName+'","person":"'+
+    // 				document.getElementById('personName').value+'"}')*/;
+
+	}
+
+		    function attachQuit() {
+			    this.addEventListener("click", hideImage);
+		    }
+		    function dettachQuit() {
+			    this.removeEventListener("click", hideImage);
+		    }
+
+		    function hideImage(ev) {
+			    var $frame = document.querySelector('.frame');
+			    $frame.style.display = 'none';
+			    var $img = document.querySelector('.frame img');
+			    $img.src = '';
+			    dettachQuit.call(ev.target);
+		    }
+	    
+	      loadDropdown();
+	
+	</script>
+
+</body>
+</html>

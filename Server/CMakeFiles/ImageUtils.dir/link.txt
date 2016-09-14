@@ -1,0 +1,2 @@
+/usr/bin/ar cr libImageUtils.a  CMakeFiles/ImageUtils.dir/src/ImageUtils_0.7.cpp.o
+/usr/bin/ranlib libImageUtils.a

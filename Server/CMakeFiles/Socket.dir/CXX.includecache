@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/opt/lampp/htdocs/fr/Server/src/Socket.cpp
+lib/Socket.h
+/opt/lampp/htdocs/fr/Server/src/lib/Socket.h
+string.h
+-
+errno.h
+-
+fcntl.h
+-
+iostream
+-
+
+/opt/lampp/htdocs/fr/Server/src/lib/Socket.h
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+netdb.h
+-
+unistd.h
+-
+string
+-
+arpa/inet.h
+-
+

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libClientSocket.a  CMakeFiles/ClientSocket.dir/src/ClientSocket.cpp.o
+/usr/bin/ranlib libClientSocket.a

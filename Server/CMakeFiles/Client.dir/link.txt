@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/Client.dir/src/simple_client_main.cpp.o  -o Client -rdynamic libClientSocket.a libSocket.a 
