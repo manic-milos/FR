@@ -23,7 +23,7 @@
 
 				<canvas id="screenshot"></canvas>
 
-				<div class="video-wrap">
+				<div id="face-indicator" class="video-wrap">
 					<div class="video" id="videowrap">
 						<video id="video" autoplay="true" src=""></video>
 					</div>
@@ -85,7 +85,7 @@
 	function screenShot()
 	{
 	
-	console.log(numss);
+	    console.log(numss);
 	    if(numss == 20)
 	    {
 	        
@@ -97,24 +97,19 @@
 	      	return;
 	    }
 	      
-		if(recording == false)
-			return;
-		var canvas = document.getElementById('screenshot');
+	    if(recording == false)
+		    return;
+	    var canvas = document.getElementById('screenshot');
 
-		canvas.width = parseInt(getComputedStyle(video).width);
-		canvas.height = parseInt(getComputedStyle(video).height);
+	    canvas.width = parseInt(getComputedStyle(video).width);
+	    canvas.height = parseInt(getComputedStyle(video).height);
 
-		var ctx = canvas.getContext('2d');
-		ctx.drawImage(video, 0, 0);
-		imageName = "frame";
-		dataURL = canvas.toDataURL();
+	    var ctx = canvas.getContext('2d');
+	    ctx.drawImage(video, 0, 0);
+	    imageName = "frame";
+	    dataURL = canvas.toDataURL();
 
-		save(dataURL, imageName);
-					 
-	    
-						
-				
-
+	    save(dataURL, imageName);
 	}
 
 	var recording = false;
@@ -194,9 +189,16 @@
 	
 					 console.log(this.responseText);
 					 var responseObj = JSON.parse(this.responseText);
-					
+					 if(responseObj.face==true)
+					 {
 						numss++;
-						 
+						document.getElementById('face-indicator').className="video-wrap-hasface";
+						
+					 }
+					 else
+					 {
+					 document.getElementById('face-indicator').className="video-wrap-noface";
+					 }
 						setTimeout(screenShot(),500);
 					
 			    }
@@ -225,7 +227,8 @@
 		{
 			document.getElementById('rec').style.opacity = 0;
 			recording = false;
-			document.getElementById('scan').innerHTML = 'Start scanning'
+			document.getElementById('scan').innerHTML = 'Start scanning';
+			document.getElementById('face-indicator').className="video-wrap";
 		}
 	}
 
@@ -233,6 +236,7 @@
   		video.style.marginLeft = (-parseInt(window.getComputedStyle(video).width)/2 + parseInt(window.getComputedStyle(videowrap).width)/2) + "px";
 
 		});
+    
 
 function attachQuit() {
 			this.addEventListener("click", hideImage);

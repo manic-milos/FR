@@ -9,7 +9,8 @@ $input = json_decode(file_get_contents('php://input'),true);
 // echo $input;
 
 if($method=="POST"){
-  $name = mysql_real_escape_string('/opt/lampp/htdocs/fr/final/server/uploads/fr'.microtime(true).'_'.$input['name']);
+  $shortname='fr'.microtime(true).'_'.$input['name'];
+  $name = mysql_real_escape_string('/opt/lampp/htdocs/fr/upload/'.$shortname);
   $data = mysql_real_escape_string($input['data']);
 
 //   $name = '/tmp/'.microtime(true).'_'.$input['name'];
@@ -51,8 +52,10 @@ if($method=="POST"){
   $csvfile=fopen($csvpath,"a");
   fwrite($csvfile,$name.';'.$personNo."\n");
   fclose($csvfile);
+  $command="../../Server/Client F ".$shortname;
+  $faceexec=exec($command,$returnvar);
 //   echo $name;
-  echo '{"meta": {"code": 200, "message": "Request successful"}}';
+  echo '{"meta": {"code": 200, "message": "Request successful"},"face":'.$faceexec.'}';
 }
 
 ?>

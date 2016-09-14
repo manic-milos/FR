@@ -101,6 +101,27 @@ header {
 	background-color: #858585;
 }
 
+.video-wrap-noface {
+	margin: auto;
+	width: 75%;
+	height: 400px;
+	background-color: red;
+	margin-top: 50px;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.video-wrap-hasface {
+	margin: auto;
+	width: 75%;
+	height: 400px;
+	background-color: green;
+	margin-top: 50px;
+	border-radius: 5px;
+	padding: 10px;
+
+}
+
 .video {
 	background-size: cover;
 	background-position: center;
@@ -218,7 +239,17 @@ input[type="text"] {
 		height: auto;
 		margin-top: 20px;
 	}
-
+	
+	.video-wrap-noface {
+		height: auto;
+		margin-top: 20px;
+	}
+	
+	.video-wrap-hasface {
+		height: auto;
+		margin-top: 20px;
+	}
+	
 	.video {
 		padding: 0px;
 	}

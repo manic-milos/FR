@@ -477,12 +477,25 @@ int main ( int argc, char *argv[] )
 		cout<<"cols:"<<orImage.cols<<endl;
                 imgFile = processImage(orImage);
 		
+                if(action=='F')
+		{
+		  if(imgFile.empty())
+		  {
+		    new_sock<<"false";
+		  }
+		  else
+		  {
+		    new_sock<<"true";
+		  }
+		  goto wait;
+		}
                 if(imgFile.empty())
                 {
                   new_sock << "{\"success\":false,\"exception\":\"Face not found!\"}";
                   logFile << "Nije pronadjeno lice.\n";
                   goto wait;
                 }
+		
                 
                 //imwrite( "Gray_Image.jpg", imgFile );
 //                 return 0;
