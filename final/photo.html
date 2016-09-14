@@ -37,6 +37,9 @@
 					<datalist id="datal">
 					</datalist>
 					<button class="scan-small" onclick="save()">Save image</button>
+					
+					<div class="scan">Autolearn<input type="checkbox" id="autolearn"></div>
+					
 					<button class="scan-small" onclick="learn()">Learn faces!</button>
 				</div>
 
@@ -174,7 +177,11 @@
 			      var responseObj = JSON.parse(this.responseText);
 			      if( responseObj != undefined && responseObj.meta.code == "200") {
 				      if(++currentPhoto==dataUrls.length)
+				      {
 					alert("Images saved!");
+					if(document.getElementById('autolearn').checked)
+					    learn();
+				      }
 				      else
 					console.log("Images saved!");
 			      }

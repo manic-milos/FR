@@ -36,6 +36,7 @@
 					<datalist id="datal">
 					</datalist>
 					<button class="scan-small" id="scan" onclick="toggleScan()">Scan</button>
+					<div class="scan">Autolearn<input type="checkbox" id="autolearn"></div>
 					<button class="scan-small" onclick="learn()">Learn faces!</button>
 				</div>
 
@@ -89,7 +90,9 @@
 	    {
 	        
 	      	toggleScan();
-	      	alert("New face learned!");
+	      	alert("New face saved!");
+	      	if(document.getElementById('autolearn').checked)
+					    learn();
 	      	numss = 0;
 	      	return;
 	    }
