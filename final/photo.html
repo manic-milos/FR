@@ -57,27 +57,44 @@
 	var imageSelected = false;
 	var dataUrl = false;
 	var imageName = false;
-
+	var dataUrls=[];
+	var imageNames=[];
 	function readURL(input) 
 	{
 	
 	  if (input.files && input.files[0]) 
 	  {
+// 		for(int i=0;i<dataUrls.length();i++)
+// 		{
+// 		  dataUrls.pop();
+// 		  imageNames.pop();
+// 		}
+// 		console.log(dataUrls.length);
+		dataUrls.length=0;
+		imageNames.length=0;
+		console.log(dataUrls);
+		console.log(imageNames);
+	      
+	      imageSelected = true;
+	      var currentPhoto=0;
+	      console.log(input.files.length);
+	      for(var i=0;i<input.files.length;i++)
+	      {
 		var reader = new FileReader();
-
-		  reader.onload = function (e) 
+		reader.onload = function (e) 
 		  {
 		    //document.getElementById('thumb').src = e.target.result
 									// console.log(e);
 		    // console.log(e.target.result);
 		    document.getElementById('picwrap').style.backgroundImage = 'url('+e.target.result+')';
 		    dataUrl = e.target.result;
-		    imageName = input.files[0].name;
+		    imageName = input.files[currentPhoto++].name;
+		    dataUrls.push(dataUrl);
+		    imageNames.push(imageName);
+		    console.log(dataUrls.length);
 		  };
-
-	      imageSelected = true;
-
-	      reader.readAsDataURL(input.files[0]);
+		  reader.readAsDataURL(input.files[i]);
+	      }
 	  }
 	}
 
@@ -140,37 +157,40 @@
 	{
 	    if(imageSelected)
 	    {
-
 		    if(document.getElementById('personName').value.trim().length == 0)
 		    {
 			    alert("Name missing!");
 			    return;
 		    }
 	    
-				    var xhttp = new XMLHttpRequest();
-			      xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-				//  window.alert(this.responseText);
-	    
-					    console.log(this.responseText);
-					    var responseObj = JSON.parse(this.responseText);
-					    if( responseObj != undefined && responseObj.meta.code == "200") {
-						    alert("Image saved!");
-					    }
-				}
-			      };
+	      for(var i=0;i<dataUrls.length;i++)
+	      {
+		    var xhttp = new XMLHttpRequest();
+		    xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			//  window.alert(this.responseText);
+    
+			      console.log(this.responseText);
+			      var responseObj = JSON.parse(this.responseText);
+			      if( responseObj != undefined && responseObj.meta.code == "200") {
+				      console.log("Image saved!");
+			      }
+			}
+		    };
+		    
 			      xhttp.open("POST", "http://localhost/fr/final/server/save.php", true);
 
 				    // xhttp.open("POST", "/server/server.php", true);
-				    xhttp.send('{"data": "'+dataUrl+
-				    '", "name": "'+imageName+'","person":"'+
+				    xhttp.send('{"data": "'+dataUrls[i]+
+				    '", "name": "'+imageNames[i]+'","person":"'+
 				    document.getElementById('personName').value+'"}');
+	      }
 
-		}
-		    else
-		    {
-			    alert("No image selected!");
-		    }
+	    }
+	    else
+	    {
+		    alert("No image selected!");
+	    }
 	}
 	function learn()
 	{
@@ -200,22 +220,22 @@
 
 	}
 
-		    function attachQuit() {
-			    this.addEventListener("click", hideImage);
-		    }
-		    function dettachQuit() {
-			    this.removeEventListener("click", hideImage);
-		    }
+	function attachQuit() {
+		this.addEventListener("click", hideImage);
+	}
+	function dettachQuit() {
+		this.removeEventListener("click", hideImage);
+	}
 
-		    function hideImage(ev) {
-			    var $frame = document.querySelector('.frame');
-			    $frame.style.display = 'none';
-			    var $img = document.querySelector('.frame img');
-			    $img.src = '';
-			    dettachQuit.call(ev.target);
-		    }
+	function hideImage(ev) {
+		var $frame = document.querySelector('.frame');
+		$frame.style.display = 'none';
+		var $img = document.querySelector('.frame img');
+		$img.src = '';
+		dettachQuit.call(ev.target);
+	}
 	    
-	      loadDropdown();
+	loadDropdown();
 	
 	</script>
 
