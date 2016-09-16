@@ -70,7 +70,10 @@
 	    video.src = window.URL.createObjectURL(stream);
 	    localMediaStream = stream;
 		}
-
+	var times=0;
+	var maxConf=0;
+	var maxImg=false;
+	var maxName=false;
 	function screenShot()
 	{
 		if(recording == false)
@@ -98,16 +101,37 @@
 						screenShot();
 					}
 					else {
-						 var $frame = document.querySelector('.frame');
-						 var $img = document.querySelector('.frame img');
-  						 var $personName = document.getElementById('nameFound');
-						 $personName.innerHTML = responseObj.name;
-						 $img.src = responseObj.data;
-						 $frame.style.display = 'block';
-						 attachQuit.call($frame);
+						
+						 if(++times<5)
+						 {
+						    var conf=responseObj.confidence;
+						    if(conf>maxConf)
+						    {
+						      maxConf=conf;
+						      maxImg=responseObj.data;
+						      maxName=responseObj.name;
+						    } 
+						    screenShot();
+						    
+						 }
+						 else
+						 {
+						    var $frame = document.querySelector('.frame');
+						    var $img = document.querySelector('.frame img');
+						    var $personName = document.getElementById('nameFound');
+						    $personName.innerHTML = maxName;
+						    $img.src = maxImg;
+						    $frame.style.display = 'block';
+						    attachQuit.call($frame);
 
-						 
-						setTimeout(toggleScan(),500);
+						    
+						      setTimeout(toggleScan(),500);
+						      
+						    times=0;
+						    maxConf=0;
+						    maxImg=false;
+						    maxName=false;
+						 }
 						
 					 }
 			    }

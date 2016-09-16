@@ -35,7 +35,6 @@ $microtime=microtime(true);
   
   //dekodiranje jsona vracenog iz exec
   $jsondata=json_decode($returns,true);
-
   if($jsondata['success']==1)
   {
     $predictedClass=$jsondata['predicted'];
@@ -80,7 +79,7 @@ $microtime=microtime(true);
 
 	exec("rm ../../upload/".$shortname);
 	
-    echo '{"name":"'.$personName.'","data":"'.$base64src.'"}';
+    echo '{"name":"'.$personName.'","confidence":'.$jsondata['confidence'].', "data":"'.$base64src.'"}';
 	
   }
   else
